@@ -220,32 +220,53 @@ namespace EMedicineBE.Services
             _logger.LogInformation($"Added to Cart Done....");
             return cart;
         }
-        public async Task<Orders> PlaseOrder(Orders order)
+        public async Task<Orders> PlaseOrder(OrderItemDTO orderitem)
         {
-            if (order == null || order.UserId == 0 || order.orderItems == null || !order.orderItems.Any())
+            var order_to_user = await _applicationDB1.orders.FirstOrDefaultAsync(u => u.ID == (orderitem.OrderId));
+            if (order_to_user == null)
             {
-                _logger.LogWarning("Invalid Order provided.");
-                throw new ArgumentException("Invalid order data.");
+                _logger.LogWarning($"order with id {orderitem.OrderId} not found.");
+                throw new NotFoundException($"order with id {orderitem.OrderId} not found.");
             }
+            var user = await _applicationDB1.users.FirstOrDefaultAsync(u => u.ID == order_to_user.UserId);
+            if (user == null)
+            {
+                _logger.LogWarning($"user with id {order_to_user.UserId} not found.");
+                throw new NotFoundException($"user with id {order_to_user.UserId} not found.");
+            }
+            var order_to_medicine = await _applicationDB1.medicines.FirstOrDefaultAsync(u => u.ID == orderitem.MedicineId);
+            if (user == null)
+            {
+                _logger.LogWarning($"user with id {orderitem.MedicineId} not found.");
+                throw new NotFoundException($"user with id {orderitem.MedicineId} not found.");
+            }
+            OrderItems orderItems = new OrderItems();
+            orderItems.OrderId = order_to_user.ID;
+            orderItems.MedicineId = order_to_medicine.ID;
+            orderItems.UnitPrice=order_to_medicine.UnitPrice;
+            orderItems.Discount=order_to_medicine.Discount ;
+            orderItems.Quantity = orderitem.Quantity;
+            orderItems.TotalPrice = (order_to_medicine.UnitPrice - order_to_medicine.Discount) * orderitem.Quantity;
+           
+            
+            Orders order = new Orders();
             order.OrderNo = Guid.NewGuid().ToString();
-            foreach (var item in order.orderItems)
+            order.UserId = user.ID;
+            var total_from_item = await _applicationDB1.orderItems.ToListAsync();
+
+            foreach (var item in total_from_item)
             {
-                item.TotalPrice += (item.UnitPrice - item.Discount) * item.Quantity;
+                if(item.OrderId== order.ID) {
+                    order.OrderTotal += (item.UnitPrice - item.Discount) * item.Quantity;
+                }
             }
-            order.OrderTotal = order.orderItems.Sum(item => item.TotalPrice);
-            // Calculate the total order amount
-            //  order.OrderTotal = order.orderItems.Sum(item => item.Quantity * item.UnitPrice);
-
-            // Set initial order status
             order.OrderStatus = "Pending";
-
             _applicationDB1.orders.Add(order);
+            _applicationDB1.orderItems.Add(orderItems);
             await _applicationDB1.SaveChangesAsync();
             _logger.LogInformation("Order Added");
             return order;
-
         }
-
         public async Task<ICollection<OrderItems>> OrderList()
         {
             var orders = await _applicationDB1.orderItems.ToListAsync();

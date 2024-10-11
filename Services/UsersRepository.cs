@@ -99,7 +99,7 @@ namespace EMedicineBE.Services
         public async Task<IEnumerable<Users>> GetAllUaersAsync()
         {
             var allusers = await _applicationDB1.users.Include(c=>c.Carts)
-                                 .Include(o=>o.Orders).ToListAsync();
+                                 .Include(o=> o.Orders).ThenInclude(o =>o.orderItems).ToListAsync ();
             if (allusers == null)
             {
                 _logger.LogWarning("No Found Any User!!!");

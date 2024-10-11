@@ -13,6 +13,6 @@ namespace EMedicineBE.Models
         [ForeignKey("UserId")]
         [JsonIgnore]
         public Users User { get; set; }
-        public List<OrderItems> orderItems { get; set; }
+        public ICollection<OrderItems> orderItems { get; set; }
     }
 }

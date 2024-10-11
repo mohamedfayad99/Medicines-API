@@ -12,7 +12,7 @@ namespace EMedicineBE.Services
         Task<MedicinesDTO> UpdateMedicine(string? name, MedicinesDTO medicinesDTO);
         Task DeleteMedicine(string? name);
         Task<Cart> AddToCart(CartDTO cartDTO);
-        Task<Orders> PlaseOrder(Orders orders);
+        Task<Orders> PlaseOrder(OrderItemDTO orders);
         Task<ICollection<OrderItems>> OrderList();
     }
 }

@@ -6,12 +6,6 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-//options =>
-//{
-//    options.ReturnHttpNotAcceptable = true;
-//}
-//           ).AddNewtonsoftJson()
-//           .AddXmlDataContractSerializerFormatters();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices(builder.Configuration);
@@ -31,10 +25,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-/*app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-}); */
 
 
 app.Run();

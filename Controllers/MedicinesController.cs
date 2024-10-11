@@ -107,9 +107,9 @@ namespace EMedicineBE.Controllers
         }
 
         [HttpPost("placeOrder")]
-        public async Task<ActionResult> placeOrder([FromBody]Orders orders)
+        public async Task<ActionResult> placeOrder(OrderItemDTO orderItems)
         {
-            var order = await _medicinesRepository.PlaseOrder(orders);
+            var order = await _medicinesRepository.PlaseOrder(orderItems);
             if(order == null) {
                 return BadRequest();
             }
