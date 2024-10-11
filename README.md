@@ -1,5 +1,5 @@
 # Medicines API
-## This project is a web application built with .NET 7.0, designed with modern development principles such as separation of concerns, dependency injection, and clean architecture patterns. The core functionalities revolve around secure data handling, efficient object mapping, and an extensible service configuration.
+## This project is a web application built with [.NET 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0), designed with modern development principles such as separation of concerns, dependency injection, and clean architecture patterns. The core functionalities revolve around secure data handling, efficient object mapping, and an extensible service configuration.
 ## Key Features
 ### 1. Mapping with AutoMapper
 The application uses AutoMapper to facilitate seamless mapping between domain models and DTOs (Data Transfer Objects). This reduces boilerplate code and improves maintainability when transferring data between different layers of the application.
@@ -18,4 +18,4 @@ dotnet run
 Navigate to https://localhost:7109
 ![one](https://github.com/user-attachments/assets/2f7c19ad-1f6d-46cf-a506-aeda469437f4)
 ![two](https://github.com/user-attachments/assets/b8baecba-b81e-4a81-8174-b5d813375ac6)
-To test all endpoints, you'll need to use a software such as Postman.
+To test all endpoints, you'll need to use a software such as [Postman](https://www.postman.com/downloads/).
