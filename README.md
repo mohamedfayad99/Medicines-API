@@ -1,5 +1,5 @@
 # Medicines API
-## This project is a web application built with [.NET 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0), designed with modern development principles such as separation of concerns, dependency injection, and clean architecture patterns. The core functionalities revolve around secure data handling, efficient object mapping, and an extensible service configuration.
+## This project is a Api application built with [.NET 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0), designed with modern development principles such as separation of concerns, dependency injection, and clean architecture patterns. The core functionalities revolve around secure data handling, efficient object mapping, and an extensible service configuration.
 ## Key Features
 ### 1. Mapping with AutoMapper
 The application uses AutoMapper to facilitate seamless mapping between domain models and DTOs (Data Transfer Objects). This reduces boilerplate code and improves maintainability when transferring data between different layers of the application.
